@@ -2,6 +2,11 @@
         return 0 if numbers.empty?
         nums = replace_newline_char(numbers)
         nums = replace_custom_delimiter(nums)
+        negative_present = find_negative_numbers(nums)
+        if negative_present.any?
+            raise "Negative numbers not allowed: #{negative_present.join(', ')}"
+            return
+        end
         sum = final_sum(nums)
     end
 
@@ -14,6 +19,11 @@
         numbers = nums.split(/\s+/).map(&:to_i)
         sum = numbers.reject { |num| num > 1000 }.sum
         return sum
+    end
+
+    def find_negative_numbers(string)
+        negative_numbers = string.split(" ").map(&:to_i).select { |num| num < 0 }
+        return negative_numbers
     end
 
     def replace_newline_char(str)
