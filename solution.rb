@@ -16,8 +16,8 @@
     end
 
     def final_sum(nums)
-        numbers = nums.split(/\s+/).map(&:to_i)
-        sum = numbers.reject { |num| num > 1000 }.sum
+        numbers_arr = nums.split(/\s+/).map(&:to_i)
+        sum = numbers_arr.reject { |num| num > 1000 }.sum
         return sum
     end
 
