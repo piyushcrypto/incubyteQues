@@ -1,9 +1,37 @@
     def add(numbers)
-        nums = numbers.split(',')
-        nums.map!(&:to_i)
-        sum = nums.sum
+        return 0 if numbers.empty?
+        nums = replace_newline_char(numbers)
+        nums = replace_custom_delimiter(nums)
+        sum = final_sum(nums)
+    end
+
+    def replace_custom_delimiter(str)
+        str_after_delimiter_removal = str.gsub(/[^[:alnum:]-]/, " ") 
+        str_after_delimiter_removal
+    end
+
+    def final_sum(nums)
+        numbers = nums.split(/\s+/).map(&:to_i)
+        sum = numbers.reject { |num| num > 1000 }.sum
         return sum
     end
+
+    def replace_newline_char(str)
+        split_string = str.split('\n')
+        return split_string.join(" ")
+    end
+
+    def find_delimiters(s)
+        delimiters = Set.new
+        if s.start_with?('\\\\')
+          s.each_char do |char|
+            unless char.match?(/[[:alnum:]]/)
+              delimiters.add(char)
+            end
+          end
+        end
+        delimiters
+      end
     
     def main()
         while true
@@ -19,11 +47,3 @@
     end
     
     main()
-  
-# piyush@piyush-Nitro-AN515-52:~/Desktop/incubyteQues$ ruby solution.rb
-# 1,2,3,4
-# Result: 10
-# 1,2,3,4,10
-# Result: 20
-# 1,2,3,4,50,61,3
-# Result: 124
