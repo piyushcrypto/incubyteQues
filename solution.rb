@@ -49,9 +49,9 @@
     
         begin
             result = add(input)
-            puts "Result: #{result}"
+            puts result
         rescue => exception
-            puts "Error: #{exception}"
+            puts exception
         end
         end
     end
